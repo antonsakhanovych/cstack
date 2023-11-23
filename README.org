@@ -21,6 +21,9 @@ stack_deinit(stack);
 # Array implementation
 gcc example.c stack_array.c -o example && ./example
 
+#+end_src
+
+#+begin_src bash
 # Linked List implementation
 gcc example.c stack_linked_list.c -o example && ./example
 
