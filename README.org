@@ -1,0 +1,27 @@
+* CStack
+Stack implemented in C:
+1. Array implementation
+2. Linked List implementation
+
+* Get Started
+Check [[./stack.h][stack.h]] for the methods available
+
+#+begin_src c
+
+// use stack_init to initialize a stack
+Stack* stack = stack_init();
+
+// to free the memory use
+stack_deinit(stack);
+
+#+end_src
+
+* Run example
+#+begin_src bash
+# Array implementation
+gcc example.c stack_array.c -o example && ./example
+
+# Linked List implementation
+gcc example.c stack_linked_list.c -o example && ./example
+
+#+end_src
