@@ -40,9 +40,7 @@ void stack_push(Stack *self, int val) {
   if (internal->size == internal->cap) {
     int *temp = internal->data;
     internal->cap *= 2;
-    internal->data = calloc(internal->cap, sizeof(int));
-    memcpy(internal->data, temp, internal->size * sizeof(int));
-    free(temp);
+    internal->data = realloc(internal->data, sizeof(int) * internal->cap);
   }
   internal->data[internal->size++] = val;
 }
