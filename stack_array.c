@@ -1,54 +1,65 @@
 #include "./stack.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-typedef struct _node _Node;
+typedef struct _internal_stack _Stack;
 
-struct _node {
-  int val;
-  _Node *next;
+struct _internal_stack {
+  int *data;
+  size_t size;
+  size_t cap;
 };
 
 Stack *stack_init() {
+  _Stack *internal = malloc(sizeof(_Stack));
+  internal->cap = 2;
+  internal->data = calloc(2, sizeof(int));
+  internal->size = 0;
   Stack *self = malloc(sizeof(Stack));
-  self->top = NULL;
+  self->_internal = internal;
   return self;
 }
 
+bool stack_is_empty(Stack *self) {
+  _Stack *internal = self->_internal;
+  return internal->size == 0;
+}
+
 void stack_print(Stack *self) {
-  _Node *curr = self->top;
+  _Stack *internal = self->_internal;
   printf("[ ");
-  while (curr != NULL) {
-    printf("%d ", curr->val);
-    curr = curr->next;
+  for (size_t ind = 0; ind < internal->size; ind++) {
+    printf("%d ", internal->data[ind]);
   }
   printf("]\n");
 }
 
 void stack_push(Stack *self, int val) {
-  _Node *temp = self->top;
-  _Node *node = malloc(sizeof(_Node));
-  node->val = val;
-  node->next = temp;
-  self->top = node;
-};
+  _Stack *internal = self->_internal;
+  if (internal->size == internal->cap) {
+    int *temp = internal->data;
+    internal->cap *= 2;
+    internal->data = calloc(internal->cap, sizeof(int));
+    memcpy(internal->data, temp, internal->size * sizeof(int));
+    free(temp);
+  }
+  internal->data[internal->size++] = val;
+}
 
-int stack_top(Stack *self) { return ((_Node *)self->top)->val; }
+int stack_top(Stack *self) {
+  _Stack *internal = self->_internal;
+  return internal->data[internal->size - 1];
+}
 
 int stack_pop(Stack *self) {
-  _Node *curr = (_Node *)self->top;
-  self->top = curr->next;
-  int res = curr->val;
-  free(curr);
-  return res;
+  _Stack *internal = self->_internal;
+  return internal->data[--internal->size];
 }
 
 void *stack_deinit(Stack *self) {
-  _Node *curr = self->top;
-  while (curr != NULL) {
-    _Node *temp = curr->next;
-    free(curr);
-    curr = temp;
-  }
+  _Stack *internal = self->_internal;
+  free(internal->data);
+  free(internal);
   free(self);
 }
