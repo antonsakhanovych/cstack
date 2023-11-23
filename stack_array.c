@@ -57,7 +57,7 @@ int stack_pop(Stack *self) {
   return internal->data[--internal->size];
 }
 
-void *stack_deinit(Stack *self) {
+void stack_deinit(Stack *self) {
   _Stack *internal = self->_internal;
   free(internal->data);
   free(internal);

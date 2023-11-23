@@ -21,6 +21,6 @@ int stack_top(Stack *self);
 
 int stack_pop(Stack *self);
 
-void *stack_deinit(Stack *self);
+void stack_deinit(Stack *self);
 
 #endif

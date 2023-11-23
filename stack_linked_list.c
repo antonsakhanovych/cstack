@@ -46,7 +46,7 @@ int stack_pop(Stack *self) {
   return res;
 }
 
-void *stack_deinit(Stack *self) {
+void stack_deinit(Stack *self) {
   _Node *curr = self->_internal;
   while (curr != NULL) {
     _Node *temp = curr->next;
