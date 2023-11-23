@@ -4,14 +4,19 @@
 typedef struct stack Stack;
 
 struct stack {
-  int val;
-  Stack *next;
+  void *top;
 };
 
-void push(int val);
+Stack *stack_init();
 
-int top();
+void stack_print(Stack *self);
 
-int pop();
+void stack_push(Stack *self, int val);
+
+int stack_top(Stack *self);
+
+int stack_pop(Stack *self);
+
+void *stack_deinit(Stack *self);
 
 #endif
