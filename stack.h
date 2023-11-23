@@ -1,13 +1,17 @@
 #ifndef STACK
 #define STACK
 
+#include <stdbool.h>
+
 typedef struct stack Stack;
 
 struct stack {
-  void *top;
+  void *_internal;
 };
 
 Stack *stack_init();
+
+bool stack_is_empty(Stack *);
 
 void stack_print(Stack *self);
 
